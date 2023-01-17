@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
+import { Link, useSearchParams, useLocation } from 'react-router-dom';
 import css from './MovieDetails.module.css';
 import Loader from 'components/Loader/Loader';
 
@@ -10,6 +10,7 @@ const Movies = () => {
   const [errors, setErrors] = useState('');
   const [searchParams, setSearchParams] = useSearchParams();
   const [isLoading, setIsLoading] = useState(false);
+  const location = useLocation();
   const query = searchParams.get('query') ?? '';
 
   useEffect(() => {
@@ -52,7 +53,11 @@ const Movies = () => {
               searchedMovies.map(({ id, title }) => {
                 return (
                   <li key={id}>
-                    <Link className={css.item} to={`/movies/${id}`}>
+                    <Link
+                      className={css.item}
+                      to={`/movies/${id}`}
+                      state={{ from: location }}
+                    >
                       {title}
                     </Link>
                   </li>

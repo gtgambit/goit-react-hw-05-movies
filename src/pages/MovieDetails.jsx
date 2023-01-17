@@ -11,7 +11,7 @@ const MovieDetails = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState('');
   const location = useLocation();
-  const backLinkHref = location?.state?.from ?? '/movies';
+  const backLinkHref = location?.state?.from ?? '/';
 
   useEffect(() => {
     if (!movieId) return;
@@ -20,9 +20,9 @@ const MovieDetails = () => {
       try {
         setIsLoading(true);
         let MovieDataById = await getMovieById(movieId);
-        const genres = MovieDataById.genres.map(el => el.name);
+        const genresName = MovieDataById.genres.map(el => el.name);
 
-        MovieDataById.genres = genres;
+        MovieDataById.genres = genresName;
         setMovieDetails(MovieDataById);
       } catch (error) {
         setErrors(error.message);
@@ -35,6 +35,8 @@ const MovieDetails = () => {
     getMovieDetails(movieId);
   }, [movieId, errors]);
 
+  const { poster_path, title, vote_average, overview, genres } = movieDetails;
+
   return (
     <main>
       {isLoading && <Loader />}
@@ -42,17 +44,17 @@ const MovieDetails = () => {
       <div className={css.DetailsWrapper}>
         <div className={css.ImageWrapper}>
           <img
-            src={`https://image.tmdb.org/t/p/w500${movieDetails.poster_path}`}
-            alt={movieDetails.title}
+            src={`https://image.tmdb.org/t/p/w500${poster_path}`}
+            alt={title}
           />
         </div>
         <div className={css.MovieDetails}>
-          <h2>{movieDetails.title}</h2>
-          <p>User score: {movieDetails.vote_average}</p>
+          <h2>{title}</h2>
+          <p>User score: {vote_average}</p>
           <p>
-            Overview: <br /> {movieDetails.overview}
+            Overview: <br /> {overview}
           </p>
-          <p>Genres:{movieDetails.genres}</p>
+          <p>Genres: {Array.isArray(genres) && genres.map(el => el + ', ')}</p>
         </div>
       </div>
       Additional information

@@ -4,6 +4,7 @@ import { Link, useLocation } from 'react-router-dom';
 import Loader from '../components/Loader/Loader';
 import { getTrendingMovies } from 'services/api';
 import css from '../App.module.css';
+import { MovieList } from 'components/MovieList/MovieList';
 
 const Home = () => {
   const [moviesData, setMoviesData] = useState([]);
@@ -33,20 +34,7 @@ const Home = () => {
       <h2>Trending today</h2>
       <ul>
         {isLoading && <Loader />}
-        {Array.isArray(moviesData) &&
-          moviesData.map(({ id, title }) => {
-            return (
-              <li key={id}>
-                <Link
-                  className={css.item}
-                  to={`/movies/${id}`}
-                  state={{ from: location }}
-                >
-                  {title}
-                </Link>
-              </li>
-            );
-          })}
+        <MovieList movies={moviesData} />
       </ul>
     </div>
   );

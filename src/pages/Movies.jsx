@@ -4,6 +4,7 @@ import css from './MovieDetails.module.css';
 import Loader from 'components/Loader/Loader';
 
 import { getMovieByQuery } from 'services/api';
+import { MovieList } from 'components/MovieList/MovieList';
 
 const Movies = () => {
   const [searchedMovies, setSearchedMovies] = useState([]);
@@ -49,20 +50,7 @@ const Movies = () => {
         <div>
           <ul>
             {isLoading && <Loader />}
-            {Array.isArray(searchedMovies) &&
-              searchedMovies.map(({ id, title }) => {
-                return (
-                  <li key={id}>
-                    <Link
-                      className={css.item}
-                      to={`/movies/${id}`}
-                      state={{ from: location }}
-                    >
-                      {title}
-                    </Link>
-                  </li>
-                );
-              })}
+            <MovieList movies={searchedMovies} />
           </ul>
         </div>
       </div>

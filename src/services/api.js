@@ -37,3 +37,4 @@ export const getCastById = async movieId => {
   const { data } = await axios.get(`/movie/${movieId}/credits`);
   return data;
 };
+///

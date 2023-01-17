@@ -1,0 +1,1 @@
+{"version":3,"file":"static/css/818.ea9caf7a.chunk.css","mappings":"AAAA,gBAGE,aAAc,CAFd,YAAa,CACb,yBAA0B,CAE1B,mBACF","sources":["App.module.css"],"sourcesContent":[".App {\n  display: grid;\n  grid-template-columns: 1fr;\n  grid-gap: 16px;\n  padding-bottom: 24px;\n}\n"],"names":[],"sourceRoot":""}

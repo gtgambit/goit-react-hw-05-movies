@@ -1,12 +1,9 @@
-import PropTypes from 'prop-types';
-import React, { lazy, Suspense, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Loader from 'components/Loader/Loader';
 import { Link, Outlet, useParams, useLocation } from 'react-router-dom';
 
 import { getMovieById } from 'services/api';
 import css from './MovieDetails.module.css';
-
-//Cast = lazy(() => import('./Cast'));
 
 const MovieDetails = () => {
   const { movieId } = useParams();
@@ -36,7 +33,7 @@ const MovieDetails = () => {
     };
 
     getMovieDetails(movieId);
-  }, [movieId]);
+  }, [movieId, errors]);
 
   return (
     <main>

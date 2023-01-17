@@ -26,7 +26,7 @@ const Cast = () => {
       }
     };
     getCast(movieId);
-  }, [movieId]);
+  }, [movieId, errors]);
 
   if (!cast) return;
 

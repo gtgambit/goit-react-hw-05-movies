@@ -25,7 +25,7 @@ export const Reviews = () => {
       }
     };
     reviews(movieId);
-  }, [movieId]);
+  }, [movieId, errors]);
 
   return (
     <>

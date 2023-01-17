@@ -9,7 +9,7 @@ import css from '../App.module.css';
 const Home = () => {
   const [moviesData, setMoviesData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState('');
+  const [errors, setErrors] = useState('');
 
   const getTrending = async () => {
     try {
@@ -18,7 +18,8 @@ const Home = () => {
 
       setMoviesData(TrendingMovies.results);
     } catch (error) {
-      setError(error.message);
+      setErrors(error.message);
+      console.log(errors);
     } finally {
       setIsLoading(false);
     }

@@ -11,7 +11,7 @@ const Movies = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [searchParams, setSearchParams] = useSearchParams();
   const [isLoading, setIsLoading] = useState(false);
-  const query = searchParams.get('query') ?? '';
+  //const query = searchParams.get('query') ?? '';
 
   const getMovieBySearchTerm = async searchTerm => {
     try {

@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link, useSearchParams, useLocation } from 'react-router-dom';
-import css from './MovieDetails.module.css';
+import { useSearchParams } from 'react-router-dom';
 import Loader from 'components/Loader/Loader';
 
 import { getMovieByQuery } from 'services/api';
@@ -11,7 +10,6 @@ const Movies = () => {
   const [errors, setErrors] = useState('');
   const [searchParams, setSearchParams] = useSearchParams();
   const [isLoading, setIsLoading] = useState(false);
-  const location = useLocation();
   const query = searchParams.get('query') ?? '';
 
   useEffect(() => {

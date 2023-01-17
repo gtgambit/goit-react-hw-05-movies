@@ -7,7 +7,7 @@ import css from './Reviews.module.css';
 export const Reviews = () => {
   const [review, setReview] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState('');
+  const [errors, setErrors] = useState('');
   const { movieId } = useParams();
 
   useEffect(() => {
@@ -18,8 +18,8 @@ export const Reviews = () => {
         const dataReviews = await getReviewsById(movieId);
         setReview(dataReviews.results);
       } catch (error) {
-        setError(error.message);
-        console.log(error);
+        setErrors(error.message);
+        console.log(errors);
       } finally {
         setIsLoading(false);
       }
@@ -30,6 +30,7 @@ export const Reviews = () => {
   return (
     <>
       <h3>Reviews</h3>
+      {isLoading && <Loader />}
       {review.length > 0 ? (
         <ul>
           {review.map(review => {

@@ -7,7 +7,7 @@ import { getCastById } from '../../services/api';
 
 const Cast = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState('');
+  const [errors, setErrors] = useState('');
   const [cast, setCast] = useState([]);
   const { movieId } = useParams();
 
@@ -19,7 +19,8 @@ const Cast = () => {
         const cast = await getCastById(movieId);
         setCast(cast.cast);
       } catch (error) {
-        setError(error.message);
+        setErrors(error.message);
+        console.log(errors);
       } finally {
         setIsLoading(false);
       }
@@ -31,6 +32,7 @@ const Cast = () => {
 
   return (
     <ul className={css.castContainer}>
+      {isLoading && <Loader />}
       {cast.map(({ id, profile_path, original_name, character }) => {
         return (
           <li className={css.actorItem} key={id}>

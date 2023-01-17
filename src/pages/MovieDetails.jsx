@@ -12,7 +12,7 @@ const MovieDetails = () => {
   const { movieId } = useParams();
   const [movieDetails, setMovieDetails] = useState(movieId);
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState('');
+  const [errors, setErrors] = useState('');
   const location = useLocation();
   const backLinkHref = location?.state?.from ?? '/movies';
 
@@ -28,8 +28,8 @@ const MovieDetails = () => {
         MovieDataById.genres = genres;
         setMovieDetails(MovieDataById);
       } catch (error) {
-        setError(error.message);
-        console.log(error);
+        setErrors(error.message);
+        console.log(errors);
       } finally {
         setIsLoading(false);
       }
@@ -40,6 +40,7 @@ const MovieDetails = () => {
 
   return (
     <main>
+      {isLoading && <Loader />}
       <Link to={backLinkHref}>Go back</Link>
       <div className={css.DetailsWrapper}>
         <div className={css.ImageWrapper}>

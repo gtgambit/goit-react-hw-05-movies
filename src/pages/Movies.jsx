@@ -7,33 +7,36 @@ import { getMovieByQuery } from 'services/api';
 
 const Movies = () => {
   const [searchedMovies, setSearchedMovies] = useState([]);
-  const [error, setError] = useState('');
-  const [searchQuery, setSearchQuery] = useState('');
+  const [errors, setErrors] = useState('');
   const [searchParams, setSearchParams] = useSearchParams();
   const [isLoading, setIsLoading] = useState(false);
-  //const query = searchParams.get('query') ?? '';
+  const query = searchParams.get('query') ?? '';
 
-  const getMovieBySearchTerm = async searchTerm => {
+  const getMovieBySearchTerm = async query => {
     try {
       setIsLoading(true);
-      const searchedMovies = await getMovieByQuery(searchTerm);
+      const searchedMovies = await getMovieByQuery(query);
       setSearchedMovies(searchedMovies.results);
     } catch (error) {
-      setError(error.message);
+      setErrors(error.message);
+      console.log(errors);
     } finally {
       setIsLoading(false);
     }
   };
 
   useEffect(() => {
-    if (!searchQuery) return;
+    if (!query) return;
 
-    getMovieBySearchTerm(searchQuery);
-  }, [searchQuery]);
+    getMovieBySearchTerm(query);
+  }, [query]);
 
   const handleSubmit = event => {
     event.preventDefault();
-    setSearchQuery(event.target.elements[0].value);
+    if (event.target.elements[0].value.trim().toLowerCase() === '') {
+      alert('Please, enter correct query!');
+      return;
+    }
     setSearchParams({ query: event.target.elements[0].value });
   };
 

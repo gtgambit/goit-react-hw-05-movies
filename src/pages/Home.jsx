@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
 
 import Loader from '../components/Loader/Loader';
 import { getTrendingMovies } from 'services/api';
@@ -11,23 +10,22 @@ const Home = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState('');
 
-  const getTrending = async () => {
-    try {
-      setIsLoading(true);
-      const TrendingMovies = await getTrendingMovies();
-
-      setMoviesData(TrendingMovies.results);
-    } catch (error) {
-      setErrors(error.message);
-      console.log(errors);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
   useEffect(() => {
+    const getTrending = async () => {
+      try {
+        setIsLoading(true);
+        const TrendingMovies = await getTrendingMovies();
+
+        setMoviesData(TrendingMovies.results);
+      } catch (error) {
+        setErrors(error.message);
+        console.log(errors);
+      } finally {
+        setIsLoading(false);
+      }
+    };
     getTrending();
-  }, []); // componentDidMount
+  }, [errors]); // componentDidMount
 
   return (
     <div className={css.mainWrapper}>

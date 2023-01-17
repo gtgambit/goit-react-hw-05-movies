@@ -12,23 +12,22 @@ const Movies = () => {
   const [isLoading, setIsLoading] = useState(false);
   const query = searchParams.get('query') ?? '';
 
-  const getMovieBySearchTerm = async query => {
-    try {
-      setIsLoading(true);
-      const searchedMovies = await getMovieByQuery(query);
-      setSearchedMovies(searchedMovies.results);
-    } catch (error) {
-      setErrors(error.message);
-      console.log(errors);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
   useEffect(() => {
+    const getMovieBySearchTerm = async query => {
+      try {
+        setIsLoading(true);
+        const searchedMovies = await getMovieByQuery(query);
+        setSearchedMovies(searchedMovies.results);
+      } catch (error) {
+        setErrors(error.message);
+        console.log(errors);
+      } finally {
+        setIsLoading(false);
+      }
+    };
     if (!query) return;
     getMovieBySearchTerm(query);
-  }, [query]);
+  }, [query, errors]);
 
   const handleSubmit = event => {
     event.preventDefault();

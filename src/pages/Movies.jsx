@@ -27,14 +27,13 @@ const Movies = () => {
 
   useEffect(() => {
     if (!query) return;
-
     getMovieBySearchTerm(query);
   }, [query]);
 
   const handleSubmit = event => {
     event.preventDefault();
     if (event.target.elements[0].value.trim().toLowerCase() === '') {
-      alert('Please, enter correct query!');
+      alert('Please, enter correct name!');
       return;
     }
     setSearchParams({ query: event.target.elements[0].value });
